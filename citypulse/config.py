@@ -69,6 +69,10 @@ PRIMARY_TRAIN_PARQUET = "train.parquet"
 SENSOR_LOCATIONS_CSV = "sensor_locations_enriched.csv"
 ADJACENCY_MATRIX_PKL = "adj_mx.pkl"
 
+# Hugging Face Dataset Configuration
+HF_DATASET_REPO_ID = os.getenv("HF_DATASET_REPO_ID", "YesadeSamiksha/trafficpulse-data")
+HF_DATASET_FILENAME = os.getenv("HF_DATASET_FILENAME", "train.parquet")
+
 # App Metadata
 APP_NAME = "CityPulse"
 APP_TAGLINE = "TrafficPulse AI — Predict. Explain. Act."
