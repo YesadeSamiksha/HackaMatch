@@ -13,10 +13,11 @@ import pandas as pd
 import numpy as np
 
 from config import resolve_data_path, resolve_report_path
+from src.data_loader import get_dataset_parquet_path
 
 def run_dataset_audit():
     start_time = time.time()
-    parquet_path = resolve_data_path("train.parquet")
+    parquet_path = get_dataset_parquet_path()
     reports_dir = resolve_report_path()
     os.makedirs(reports_dir, exist_ok=True)
     

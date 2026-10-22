@@ -27,14 +27,16 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Historical Data Provenance Banner
-st.markdown("""
+from config import HF_DATASET_REPO_ID
+
+st.markdown(f"""
 <div style="background: rgba(15, 23, 42, 0.8); border: 1px solid #1E293B; border-radius: 10px; padding: 10px 16px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
     <div style="display: flex; align-items: center; gap: 8px;">
-        <span style="font-size: 1.1rem;">🗓️</span>
-        <span style="font-size: 0.82rem; color: #E2E8F0; font-weight: 600;">Data Status: Verified Historical Benchmark Telemetry</span>
+        <span style="font-size: 1.1rem;">🤗</span>
+        <span style="font-size: 0.82rem; color: #E2E8F0; font-weight: 600;">Dataset Source: Hugging Face (<code>{HF_DATASET_REPO_ID}</code>)</span>
     </div>
     <div style="font-size: 0.78rem; color: #94A3B8;">
-        Coverage Window: <b style="color: #38BDF8;">March 1, 2012 – May 23, 2012</b> (Caltrans PeMS Loop Network)
+        Coverage Window: <b style="color: #38BDF8;">March 1, 2012 – May 23, 2012</b> (Historical Caltrans PeMS D7 Loop Telemetry)
     </div>
 </div>
 """, unsafe_allow_html=True)

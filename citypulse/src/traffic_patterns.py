@@ -22,27 +22,25 @@ def analyze_traffic_patterns(sample_size: int = 120000, random_seed: int = 42) -
     if _HISTORICAL_PATTERNS_CACHE is not None:
         return _HISTORICAL_PATTERNS_CACHE
 
-    from config import resolve_data_path
+    from src.data_loader import get_dataset_parquet_path
     import pickle
 
-    parquet_path = resolve_data_path("train.parquet")
-    if not parquet_path.exists():
+    try:
+        parquet_path = get_dataset_parquet_path()
+    except Exception as e:
+        from config import resolve_data_path
         cache_pkl = resolve_data_path("traffic_patterns_cache.pkl")
         if cache_pkl.exists():
             with open(cache_pkl, "rb") as f:
                 _HISTORICAL_PATTERNS_CACHE = pickle.load(f)
             return _HISTORICAL_PATTERNS_CACHE
-        else:
-            raise FileNotFoundError(
-                f"Historical training archive not found at: '{parquet_path}'.\n"
-                "Diagnostics: train.parquet (157 MB) must be tracked via Git LFS or provided in citypulse/data/."
-            )
+        raise e
 
-    meta = pq.read_metadata(parquet_path)
+    meta = pq.read_metadata(str(parquet_path))
     total_rows = meta.num_rows
 
     cols = ["node_id", "t0_timestamp", "x_t+0_d0", "x_t+0_d1"]
-    table = pq.read_table(parquet_path, columns=cols)
+    table = pq.read_table(str(parquet_path), columns=cols)
     
     np.random.seed(random_seed)
     if total_rows > sample_size:
