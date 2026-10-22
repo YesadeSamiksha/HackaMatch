@@ -37,9 +37,19 @@ from config import resolve_model_path
 def load_artifacts():
     global _PREPROCESSOR, _CLASSIFIER, _FORECASTER
     if _PREPROCESSOR is None or _CLASSIFIER is None or _FORECASTER is None:
-        _PREPROCESSOR = joblib.load(resolve_model_path("preprocessing_pipeline.joblib"))
-        _CLASSIFIER = joblib.load(resolve_model_path("traffic_classifier.joblib"))
-        _FORECASTER = joblib.load(resolve_model_path("traffic_forecaster.joblib"))
+        try:
+            _PREPROCESSOR = joblib.load(resolve_model_path("preprocessing_pipeline.joblib"))
+            _CLASSIFIER = joblib.load(resolve_model_path("traffic_classifier.joblib"))
+            _FORECASTER = joblib.load(resolve_model_path("traffic_forecaster.joblib"))
+        except AttributeError as e:
+            if "__pyx_unpickle" in str(e) or "sklearn._loss" in str(e):
+                import sklearn
+                raise RuntimeError(
+                    f"Scikit-learn version mismatch detected! Currently installed scikit-learn is '{sklearn.__version__}', "
+                    f"but model artifacts were serialized with scikit-learn '1.3.0'. "
+                    f"Please ensure scikit-learn is pinned to 'scikit-learn==1.3.0' and 'numpy<2.0.0' in requirements.txt."
+                ) from e
+            raise
     return _PREPROCESSOR, _CLASSIFIER, _FORECASTER
 
 def predict_network_state(snapshot_df: pd.DataFrame) -> pd.DataFrame:

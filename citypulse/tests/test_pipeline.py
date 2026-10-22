@@ -153,3 +153,41 @@ def test_temporal_chronological_integrity():
     assert min_ts.startswith("2012-03"), f"Dataset should start in March 2012, got {min_ts}"
     assert max_ts.startswith("2012-05"), f"Dataset should extend into May 2012, got {max_ts}"
 
+def test_loss_unpickling_compatibility():
+    """
+    Regression test for Cython loss unpickling compatibility:
+    Verifies that serialized HistGradientBoosting models unpickle their loss instances
+    without 'sklearn._loss._loss has no attribute __pyx_unpickle_CyHalfSquaredError'.
+    """
+    from config import resolve_model_path
+    
+    forecaster = joblib.load(resolve_model_path("traffic_forecaster.joblib"))
+    classifier = joblib.load(resolve_model_path("traffic_classifier.joblib"))
+    
+    assert hasattr(forecaster, "_loss"), "Forecaster must have _loss attribute"
+    assert forecaster._loss is not None, "Forecaster loss object must be instantiated"
+    assert "HalfSquaredError" in type(forecaster._loss).__name__ or hasattr(forecaster._loss, "loss")
+    
+    assert hasattr(classifier, "_loss"), "Classifier must have _loss attribute"
+    assert classifier._loss is not None, "Classifier loss object must be instantiated"
+
+def test_prediction_lab_initialization():
+    """
+    Regression test for Prediction & Simulation Lab initialization:
+    Validates the exact pipeline called by load_lab_data() in pages/3_Prediction_Lab.py.
+    """
+    from src.data_loader import get_network_snapshot
+    from src.inference import predict_network_state
+    from src.traffic_patterns import analyze_traffic_patterns
+    
+    snapshot = get_network_snapshot()
+    preds = predict_network_state(snapshot)
+    patterns = analyze_traffic_patterns(sample_size=5000)
+    
+    assert len(preds) == 207
+    assert "pred_speed_15m" in preds.columns
+    assert "pred_condition" in preds.columns
+    assert "recurrence_map" in patterns
+    assert len(patterns["recurrence_map"]) == 207
+
+
