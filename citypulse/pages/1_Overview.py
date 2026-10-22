@@ -50,6 +50,24 @@ def load_overview_data():
 try:
     with st.spinner("Loading highway network telemetry..."):
         network_df = load_overview_data()
+    if network_df.get("is_fallback_mode", pd.Series([False])).iloc[0]:
+        st.info(
+            "ℹ️ **Running in Deployment Preview Mode:** Displaying verified telemetry snapshot (207 stations). "
+            "The full 157 MB historical archive (`data/train.parquet`) was excluded from Git because it exceeds GitHub's 100 MB limit. "
+            "To deploy the full archive to Streamlit Cloud, see **Git LFS** instructions in `README.md`."
+        )
+except FileNotFoundError as fnf_err:
+    st.error("### ❌ Primary Dataset Not Found")
+    st.markdown(f"""
+    **Diagnostic Details:**
+    - **Error:** `{fnf_err}`
+    - **Expected Location:** `citypulse/data/train.parquet` (157 MB, 4,962,618 rows)
+    - **Root Cause:** GitHub limits single files to 100 MB. `train.parquet` exists in your local development workspace, but was excluded from Git.
+    - **How to provide the full file on Streamlit Cloud:**
+      1. Track via Git LFS: `git lfs track "citypulse/data/train.parquet"`
+      2. Or mount cloud object storage and set `CITYPULSE_DATA_DIR` in your deployment environment variables.
+    """)
+    st.stop()
 except Exception as e:
     st.error(f"Error loading network data: {e}")
     st.stop()

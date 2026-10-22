@@ -23,16 +23,16 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # 1. Load Evaluation Artifacts
-reports_dir = "reports"
-models_dir = "models"
+from config import resolve_report_path
 
 try:
-    with open(os.path.join(reports_dir, "final_evaluation.json"), "r") as f:
+    final_eval_path = resolve_report_path("final_evaluation.json")
+    with open(final_eval_path, "r", encoding="utf-8") as f:
         eval_metrics = json.load(f)
-    df_comp = pd.read_csv(os.path.join(reports_dir, "model_comparison.csv"))
-    df_importance = pd.read_csv(os.path.join(reports_dir, "feature_importance.csv"))
+    df_comp = pd.read_csv(resolve_report_path("model_comparison.csv"))
+    df_importance = pd.read_csv(resolve_report_path("feature_importance.csv"))
 except Exception as e:
-    st.error(f"Error loading evaluation artifacts: {e}. Please run `python -m src.evaluate_model` first.")
+    st.error(f"Error loading evaluation artifacts from '{resolve_report_path()}': {e}. Please run `python -m src.evaluate_model` first.")
     st.stop()
 
 # 2. Key Test Metric Highlights
@@ -103,7 +103,7 @@ with col_imp:
 
 # 5. Model Card Viewer
 with st.expander("📄 View Formal Model Card (reports/model_card.md)"):
-    model_card_path = os.path.join(reports_dir, "model_card.md")
-    if os.path.exists(model_card_path):
+    model_card_path = resolve_report_path("model_card.md")
+    if model_card_path.exists():
         with open(model_card_path, "r", encoding="utf-8") as f:
             st.markdown(f.read())

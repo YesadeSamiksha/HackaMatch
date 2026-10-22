@@ -141,7 +141,12 @@ def test_temporal_chronological_integrity():
     import pyarrow.parquet as pq
     import pyarrow.compute as pc
     
-    table = pq.read_table("data/train.parquet", columns=["t0_timestamp"])
+    from config import resolve_data_path
+    parquet_path = resolve_data_path("train.parquet")
+    if not parquet_path.exists():
+        parquet_path = resolve_data_path("snapshot_cache.parquet")
+    
+    table = pq.read_table(parquet_path, columns=["t0_timestamp"])
     min_ts = pc.min(table["t0_timestamp"]).as_py()
     max_ts = pc.max(table["t0_timestamp"]).as_py()
     

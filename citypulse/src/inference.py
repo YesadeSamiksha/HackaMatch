@@ -32,13 +32,14 @@ COLOR_MAP = {
     "High": "#EF4444"       # Red
 }
 
+from config import resolve_model_path
+
 def load_artifacts():
     global _PREPROCESSOR, _CLASSIFIER, _FORECASTER
     if _PREPROCESSOR is None or _CLASSIFIER is None or _FORECASTER is None:
-        models_dir = "models"
-        _PREPROCESSOR = joblib.load(os.path.join(models_dir, "preprocessing_pipeline.joblib"))
-        _CLASSIFIER = joblib.load(os.path.join(models_dir, "traffic_classifier.joblib"))
-        _FORECASTER = joblib.load(os.path.join(models_dir, "traffic_forecaster.joblib"))
+        _PREPROCESSOR = joblib.load(resolve_model_path("preprocessing_pipeline.joblib"))
+        _CLASSIFIER = joblib.load(resolve_model_path("traffic_classifier.joblib"))
+        _FORECASTER = joblib.load(resolve_model_path("traffic_forecaster.joblib"))
     return _PREPROCESSOR, _CLASSIFIER, _FORECASTER
 
 def predict_network_state(snapshot_df: pd.DataFrame) -> pd.DataFrame:

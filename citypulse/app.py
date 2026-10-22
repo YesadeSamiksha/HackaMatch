@@ -51,14 +51,18 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
+def get_page_path(rel_path: str) -> str:
+    p = BASE_DIR / rel_path
+    return str(p) if p.exists() else rel_path
+
 # Define multipage navigation using st.navigation
 pages = [
-    st.Page("pages/1_Overview.py", title="Overview", icon="📊", url_path="Overview", default=True),
-    st.Page("pages/2_Hotspot_Intelligence.py", title="Hotspot Intelligence", icon="🔍", url_path="Hotspot_Intelligence"),
-    st.Page("pages/3_Prediction_Lab.py", title="Prediction Lab", icon="🧪", url_path="Prediction_Lab"),
-    st.Page("pages/4_Action_Center.py", title="Action Center", icon="🎯", url_path="Action_Center"),
-    st.Page("pages/5_Model_Evaluation.py", title="Model Evaluation", icon="📈", url_path="Model_Evaluation"),
-    st.Page("pages/6_Data_Quality.py", title="Data Quality Hub", icon="📋", url_path="Data_Quality")
+    st.Page(get_page_path("pages/1_Overview.py"), title="Overview", icon="📊", url_path="Overview", default=True),
+    st.Page(get_page_path("pages/2_Hotspot_Intelligence.py"), title="Hotspot Intelligence", icon="🔍", url_path="Hotspot_Intelligence"),
+    st.Page(get_page_path("pages/3_Prediction_Lab.py"), title="Prediction Lab", icon="🧪", url_path="Prediction_Lab"),
+    st.Page(get_page_path("pages/4_Action_Center.py"), title="Action Center", icon="🎯", url_path="Action_Center"),
+    st.Page(get_page_path("pages/5_Model_Evaluation.py"), title="Model Evaluation", icon="📈", url_path="Model_Evaluation"),
+    st.Page(get_page_path("pages/6_Data_Quality.py"), title="Data Quality Hub", icon="📋", url_path="Data_Quality")
 ]
 
 # Sidebar Brand Header

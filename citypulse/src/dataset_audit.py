@@ -12,10 +12,12 @@ import pyarrow.compute as pc
 import pandas as pd
 import numpy as np
 
+from config import resolve_data_path, resolve_report_path
+
 def run_dataset_audit():
     start_time = time.time()
-    parquet_path = os.path.join("data", "train.parquet")
-    reports_dir = "reports"
+    parquet_path = resolve_data_path("train.parquet")
+    reports_dir = resolve_report_path()
     os.makedirs(reports_dir, exist_ok=True)
     
     print(f"[*] Starting dataset audit on {parquet_path}...")
@@ -102,8 +104,8 @@ def run_dataset_audit():
     desc_stats = sample_df.describe().T
     
     # Check sensor locations metadata
-    locs_path = os.path.join("data", "sensor_locations_enriched.csv")
-    has_locs = os.path.exists(locs_path)
+    locs_path = resolve_data_path("sensor_locations_enriched.csv")
+    has_locs = locs_path.exists()
     if has_locs:
         df_locs = pd.read_csv(locs_path)
         lat_range = f"{df_locs['latitude'].min():.4f} to {df_locs['latitude'].max():.4f} N"

@@ -2,8 +2,67 @@ import os
 from pathlib import Path
 
 # Paths
+# BASE_DIR is always the directory where config.py lives (the citypulse/ package root)
 BASE_DIR = Path(__file__).resolve().parent
+
+# Primary Directory Resolvers
 DATA_DIR = Path(os.getenv("CITYPULSE_DATA_DIR", BASE_DIR / "data"))
+MODELS_DIR = Path(os.getenv("CITYPULSE_MODELS_DIR", BASE_DIR / "models"))
+REPORTS_DIR = Path(os.getenv("CITYPULSE_REPORTS_DIR", BASE_DIR / "reports"))
+
+def resolve_data_path(filename: str = "") -> Path:
+    """
+    Robustly resolves the absolute path to a file or directory in data/.
+    Searches DATA_DIR, BASE_DIR/data, CWD/citypulse/data, and CWD/data.
+    """
+    if not filename:
+        return DATA_DIR if DATA_DIR.exists() else (BASE_DIR / "data")
+    candidates = [
+        DATA_DIR / filename,
+        BASE_DIR / "data" / filename,
+        Path.cwd() / "citypulse" / "data" / filename,
+        Path.cwd() / "data" / filename,
+    ]
+    for c in candidates:
+        if c.exists():
+            return c
+    return DATA_DIR / filename
+
+def resolve_model_path(filename: str = "") -> Path:
+    """
+    Robustly resolves the absolute path to a file or directory in models/.
+    Searches MODELS_DIR, BASE_DIR/models, CWD/citypulse/models, and CWD/models.
+    """
+    if not filename:
+        return MODELS_DIR if MODELS_DIR.exists() else (BASE_DIR / "models")
+    candidates = [
+        MODELS_DIR / filename,
+        BASE_DIR / "models" / filename,
+        Path.cwd() / "citypulse" / "models" / filename,
+        Path.cwd() / "models" / filename,
+    ]
+    for c in candidates:
+        if c.exists():
+            return c
+    return MODELS_DIR / filename
+
+def resolve_report_path(filename: str = "") -> Path:
+    """
+    Robustly resolves the absolute path to a file or directory in reports/.
+    Searches REPORTS_DIR, BASE_DIR/reports, CWD/citypulse/reports, and CWD/reports.
+    """
+    if not filename:
+        return REPORTS_DIR if REPORTS_DIR.exists() else (BASE_DIR / "reports")
+    candidates = [
+        REPORTS_DIR / filename,
+        BASE_DIR / "reports" / filename,
+        Path.cwd() / "citypulse" / "reports" / filename,
+        Path.cwd() / "reports" / filename,
+    ]
+    for c in candidates:
+        if c.exists():
+            return c
+    return REPORTS_DIR / filename
 
 # Primary Dataset Filenames
 PRIMARY_TRAIN_PARQUET = "train.parquet"

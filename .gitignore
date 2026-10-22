@@ -1,0 +1,21 @@
+# Python & Virtual Environments
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+ENV/
+.pytest_cache/
+
+# Environment files
+.env
+.env.local
+
+# Large Datasets (> 100 MB GitHub limit)
+citypulse/data/train.parquet
+citypulse/data/*.h5
+data/train.parquet
+data/*.h5
+*.h5
+*.zip

@@ -136,3 +136,20 @@ python -m src.evaluate_model
 streamlit run app.py
 ```
 Open `http://localhost:8501` in your browser.
+
+---
+
+## ☁️ Streamlit Community Cloud Deployment
+
+1. **Repository Structure:** The repository includes a root `app.py` and `requirements.txt` delegating to `citypulse/`, allowing deployment whether the app entry point is configured as `app.py` or `citypulse/app.py`.
+2. **Cloud Telemetry Cache:** The repository bundles verified lightweight snapshot and telemetry caches (`snapshot_cache.parquet`, `recent_telemetry_cache.parquet`, `traffic_patterns_cache.pkl` < 350 KB total) so the cloud dashboard operates out of the box with zero runtime errors.
+3. **Deploying the Full 157 MB Training Dataset (Optional via Git LFS):**
+   GitHub limits individual files to 100 MB. To track and push the full historical dataset `train.parquet` (157 MB) to Streamlit Cloud:
+   ```bash
+   git lfs install
+   git lfs track "citypulse/data/train.parquet"
+   git add .gitattributes citypulse/data/train.parquet
+   git commit -m "Track full training dataset with Git LFS"
+   git push origin main
+   ```
+
