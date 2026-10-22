@@ -75,23 +75,22 @@ plan = generate_intervention_plan(node_row)
 q_col1, q_col2 = st.columns([6, 4])
 
 with q_col1:
-    st.markdown(f"""
-    <div style="background: #111827; border: 1px solid #1E293B; border-radius: 10px; padding: 18px; margin-bottom: 14px;">
-        <div style="color: #38BDF8; font-weight: 700; font-size: 0.95rem; margin-bottom: 6px;">1. What is happening right now?</div>
-        <div style="color: #F1F5F9; font-size: 0.9rem; line-height: 1.5;">{plan['what_is_happening']}</div>
-        
-        <div style="color: #38BDF8; font-weight: 700; font-size: 0.95rem; margin-top: 14px; margin-bottom: 6px;">2. What is predicted to happen in 15 minutes?</div>
-        <div style="color: #F1F5F9; font-size: 0.9rem; line-height: 1.5;">{plan['what_predicted']}</div>
-        
-        <div style="color: #38BDF8; font-weight: 700; font-size: 0.95rem; margin-top: 14px; margin-bottom: 6px;">3. Why is this hotspot prioritized?</div>
-        <div style="color: #F1F5F9; font-size: 0.9rem; line-height: 1.5;">{plan['why_ranked']}</div>
-        
-        <div style="color: #10B981; font-weight: 700; font-size: 0.95rem; margin-top: 14px; margin-bottom: 6px;">5. Recommended Investigation / Action:</div>
-        <div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10B981; padding: 10px 14px; border-radius: 4px; color: #D1FAE5; font-size: 0.88rem; line-height: 1.5;">
-            <b>{plan['recommended_action_name']}:</b> {plan['recommended_action_details']['description']}
-        </div>
-    </div>
-    """, unsafe_allow_html=True)
+    # Build HTML without leading indentation so markdown never parses it as a code block
+    diagnostic_card_html = (
+        f'<div style="background: #111827; border: 1px solid #1E293B; border-radius: 10px; padding: 18px; margin-bottom: 14px;">'
+        f'<div style="color: #38BDF8; font-weight: 700; font-size: 0.95rem; margin-bottom: 4px;">1. What is happening right now?</div>'
+        f'<div style="color: #F1F5F9; font-size: 0.9rem; line-height: 1.5; margin-bottom: 14px;">{plan["what_is_happening"]}</div>'
+        f'<div style="color: #38BDF8; font-weight: 700; font-size: 0.95rem; margin-bottom: 4px;">2. What is predicted to happen in 15 minutes?</div>'
+        f'<div style="color: #F1F5F9; font-size: 0.9rem; line-height: 1.5; margin-bottom: 14px;">{plan["what_predicted"]}</div>'
+        f'<div style="color: #38BDF8; font-weight: 700; font-size: 0.95rem; margin-bottom: 4px;">3. Why is this hotspot prioritized?</div>'
+        f'<div style="color: #F1F5F9; font-size: 0.9rem; line-height: 1.5; margin-bottom: 14px;">{plan["why_ranked"]}</div>'
+        f'<div style="color: #10B981; font-weight: 700; font-size: 0.95rem; margin-bottom: 6px;">5. Recommended Investigation / Action:</div>'
+        f'<div style="background: rgba(16, 185, 129, 0.1); border-left: 4px solid #10B981; padding: 10px 14px; border-radius: 4px; color: #D1FAE5; font-size: 0.88rem; line-height: 1.5;">'
+        f'<b>{plan["recommended_action_name"]}:</b> {plan["recommended_action_details"]["description"]}'
+        f'</div>'
+        f'</div>'
+    )
+    st.markdown(diagnostic_card_html, unsafe_allow_html=True)
     
     st.caption(f"ℹ️ *{plan['limitations']}*")
 
