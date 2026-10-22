@@ -1,0 +1,32 @@
+{
+  "features": [
+    "speed_current",
+    "speed_mean_15m",
+    "speed_mean_30m",
+    "speed_mean_60m",
+    "speed_trend_15m",
+    "speed_trend_30m",
+    "speed_std_30m",
+    "day_fraction",
+    "hour_of_day",
+    "is_peak_morning",
+    "is_peak_evening",
+    "is_weekend",
+    "node_id"
+  ],
+  "numerical_features": [
+    "speed_current",
+    "speed_mean_15m",
+    "speed_mean_30m",
+    "speed_mean_60m",
+    "speed_trend_15m",
+    "speed_trend_30m",
+    "speed_std_30m",
+    "day_fraction",
+    "hour_of_day"
+  ],
+  "input_dimension": 13,
+  "target_classification": "congestion_level (0: Low, 1: Moderate, 2: High)",
+  "target_regression": "speed_mph_t+15m (y_t+3_d0)",
+  "horizon_minutes": 15
+}

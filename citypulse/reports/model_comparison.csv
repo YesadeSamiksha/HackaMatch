@@ -1,0 +1,7 @@
+task,model,primary_metric,accuracy,balanced_accuracy,macro_f1,weighted_f1,mae_mph,rmse_mph,r2,status
+Congestion Classification,Baseline: DummyClassifier (Most Frequent),Macro F1: 0.2903,77.13%,33.33%,0.2903,0.6717,N/A,N/A,N/A,Baseline Reference
+Congestion Classification,Baseline: Logistic Regression (L2),Macro F1: 0.6615,87.01%,65.93%,0.6615,0.8391,N/A,N/A,N/A,Linear Baseline
+Congestion Classification,Candidate: HistGradientBoostingClassifier,Macro F1: 0.7926,90.00%,77.74%,0.7926,0.8962,N/A,N/A,N/A,SELECTED CHAMPION
+Speed Forecasting (t+15m),Baseline: Persistence Model (yt+3 = xt0),MAE: 3.74 mph,N/A,N/A,N/A,N/A,3.74,8.08,0.7405,Domain Persistence Baseline
+Speed Forecasting (t+15m),Baseline: Ridge Regression (L2),MAE: 3.80 mph,N/A,N/A,N/A,N/A,3.80,7.49,0.7765,Linear Regularized Baseline
+Speed Forecasting (t+15m),Candidate: HistGradientBoostingRegressor,MAE: 3.66 mph,N/A,N/A,N/A,N/A,3.66,7.33,0.7864,SELECTED CHAMPION

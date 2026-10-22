@@ -1,0 +1,50 @@
+{
+  "evaluation_timestamp": "2026-10-22 16:29:17 UTC",
+  "test_partition": "May 1, 2012 to May 23, 2012 (Chronological Holdout)",
+  "test_instances_evaluated": 50000,
+  "classification": {
+    "model": "HistGradientBoostingClassifier",
+    "test_accuracy": 0.9,
+    "test_balanced_accuracy": 0.7774,
+    "test_macro_f1": 0.7926,
+    "test_weighted_f1": 0.8962,
+    "severe_congestion_recall": 0.8147,
+    "severe_congestion_precision": 0.8201,
+    "severe_congestion_f1": 0.8174,
+    "ranking_precision_at_10": 1.0,
+    "false_positives_high": 985,
+    "false_negatives_high": 1021,
+    "confusion_matrix": [
+      [
+        37242,
+        1006,
+        315
+      ],
+      [
+        1986,
+        3270,
+        670
+      ],
+      [
+        483,
+        538,
+        4490
+      ]
+    ],
+    "baseline_dummy_accuracy": 0.7713,
+    "baseline_logreg_accuracy": 0.8701,
+    "baseline_logreg_macro_f1": 0.6615
+  },
+  "regression": {
+    "model": "HistGradientBoostingRegressor",
+    "test_mae_mph": 3.655,
+    "test_rmse_mph": 7.326,
+    "test_r2": 0.7864,
+    "baseline_persistence_mae": 3.744,
+    "baseline_persistence_rmse": 8.075,
+    "baseline_persistence_r2": 0.7405,
+    "baseline_ridge_mae": 3.804,
+    "baseline_ridge_rmse": 7.494,
+    "baseline_ridge_r2": 0.7765
+  }
+}

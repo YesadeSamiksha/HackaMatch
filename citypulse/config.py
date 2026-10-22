@@ -1,0 +1,42 @@
+import os
+from pathlib import Path
+
+# Paths
+BASE_DIR = Path(__file__).resolve().parent
+DATA_DIR = Path(os.getenv("CITYPULSE_DATA_DIR", BASE_DIR / "data"))
+
+# Primary Dataset Filenames
+PRIMARY_TRAIN_PARQUET = "train.parquet"
+SENSOR_LOCATIONS_CSV = "sensor_locations_enriched.csv"
+ADJACENCY_MATRIX_PKL = "adj_mx.pkl"
+
+# App Metadata
+APP_NAME = "CityPulse"
+APP_TAGLINE = "TrafficPulse AI — Predict. Explain. Act."
+GEOGRAPHIC_SCOPE = "Los Angeles County Highway Network (Caltrans PeMS District 7)"
+TOTAL_MONITORED_NODES = 207
+SAMPLING_INTERVAL = "5 minutes"
+TIME_SPAN = "March 1, 2012 – May 23, 2012"
+
+# Plotly Theme Colors
+PLOTLY_TEMPLATE = "plotly_dark"
+COLOR_PRIMARY_CYAN = "#06B6D4"
+COLOR_SECONDARY_BLUE = "#38BDF8"
+COLOR_ACCENT_AMBER = "#F59E0B"
+COLOR_SUCCESS_EMERALD = "#10B981"
+COLOR_DANGER_ROSE = "#EF4444"
+COLOR_PURPLE = "#A855F7"
+COLOR_BG_DARK = "#0B0F19"
+COLOR_PANEL_DARK = "#111827"
+COLOR_BORDER = "#1E293B"
+COLOR_TEXT_MUTED = "#94A3B8"
+COLOR_TEXT_LIGHT = "#F1F5F9"
+
+PLOTLY_LAYOUT_DEFAULTS = dict(
+    paper_bgcolor="rgba(17, 24, 39, 0.7)",
+    plot_bgcolor="rgba(11, 15, 25, 0.8)",
+    font=dict(family="sans-serif", color=COLOR_TEXT_LIGHT, size=12),
+    margin=dict(l=40, r=20, t=40, b=40),
+    xaxis=dict(gridcolor=COLOR_BORDER, zerolinecolor=COLOR_BORDER),
+    yaxis=dict(gridcolor=COLOR_BORDER, zerolinecolor=COLOR_BORDER),
+)

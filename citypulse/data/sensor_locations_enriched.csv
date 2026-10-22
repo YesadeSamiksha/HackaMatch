@@ -1,0 +1,208 @@
+index,sensor_id,latitude,longitude,corridor
+0,773869,34.15497,-118.31829,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+1,767541,34.11621,-118.23799,I-5 (Golden State Fwy - Griffith / Glendale)
+2,767542,34.11641,-118.23819,I-5 (Golden State Fwy - Griffith / Glendale)
+3,717447,34.07248,-118.26772,I-110 / Downtown LA Interchange
+4,717446,34.07142,-118.26572,I-110 / Downtown LA Interchange
+5,717445,34.06913,-118.25932,I-110 / Downtown LA Interchange
+6,773062,34.05368,-118.23369,I-110 / Downtown LA Interchange
+7,767620,34.13486,-118.22932,I-5 (Golden State Fwy - Griffith / Glendale)
+8,737529,34.20264,-118.47352,US-101 / I-405 Interchange (San Fernando Valley)
+9,717816,34.15562,-118.4686,US-101 / I-405 Interchange (San Fernando Valley)
+10,765604,34.16415,-118.38223,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+11,767471,34.15691,-118.22469,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+12,716339,34.07821,-118.28795,I-110 / Downtown LA Interchange
+13,773906,34.1566,-118.30266,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+14,765273,34.18949,-118.47437,US-101 / I-405 Interchange (San Fernando Valley)
+15,716331,34.07006,-118.26246,I-110 / Downtown LA Interchange
+16,771667,34.07314,-118.23388,I-110 / Downtown LA Interchange
+17,716337,34.07732,-118.28186,I-110 / Downtown LA Interchange
+18,769953,34.20672,-118.19992,I-210 / SR-2 (Foothill Corridor - Pasadena / La Canada)
+19,769402,34.12095,-118.33911,US-101 (Hollywood Fwy / Cahuenga Pass)
+20,769403,34.12073,-118.33928,US-101 (Hollywood Fwy / Cahuenga Pass)
+21,769819,34.20584,-118.19803,I-210 / SR-2 (Foothill Corridor - Pasadena / La Canada)
+22,769405,34.12634,-118.34482,US-101 (Hollywood Fwy / Cahuenga Pass)
+23,716941,34.05767,-118.21435,I-10 / Central LA Highway Network
+24,717578,34.15478,-118.27076,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+25,716960,34.12121,-118.27164,US-101 (Hollywood Fwy / Cahuenga Pass)
+26,717804,34.09478,-118.47605,I-405 (San Diego Fwy)
+27,767572,34.12967,-118.22871,I-5 (Golden State Fwy - Griffith / Glendale)
+28,767573,34.12964,-118.22901,I-5 (Golden State Fwy - Griffith / Glendale)
+29,773012,34.0839,-118.22086,I-110 / Downtown LA Interchange
+30,773013,34.08374,-118.22076,I-110 / Downtown LA Interchange
+31,764424,34.17878,-118.39469,I-10 / Central LA Highway Network
+32,769388,34.11027,-118.33441,US-101 (Hollywood Fwy / Cahuenga Pass)
+33,716328,34.06664,-118.25397,I-110 / Downtown LA Interchange
+34,717819,34.18784,-118.47407,US-101 / I-405 Interchange (San Fernando Valley)
+35,769941,34.20699,-118.20237,I-210 / SR-2 (Foothill Corridor - Pasadena / La Canada)
+36,760987,34.15359,-118.34043,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+37,718204,34.15541,-118.29575,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+38,718045,34.06712,-118.23973,I-110 / Downtown LA Interchange
+39,769418,34.12659,-118.34465,US-101 (Hollywood Fwy / Cahuenga Pass)
+40,768066,34.15118,-118.3748,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+41,772140,34.16498,-118.47493,US-101 / I-405 Interchange (San Fernando Valley)
+42,773927,34.15262,-118.28034,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+43,760024,34.1593,-118.46483,US-101 / I-405 Interchange (San Fernando Valley)
+44,774012,34.14769,-118.20137,I-5 (Golden State Fwy - Griffith / Glendale)
+45,774011,34.14747,-118.20123,I-5 (Golden State Fwy - Griffith / Glendale)
+46,767609,34.18555,-118.21733,I-210 / SR-2 (Foothill Corridor - Pasadena / La Canada)
+47,769359,34.1566,-118.42216,I-10 / Central LA Highway Network
+48,760650,34.07505,-118.23256,I-110 / Downtown LA Interchange
+49,716956,34.10658,-118.25544,US-101 (Hollywood Fwy / Cahuenga Pass)
+50,769831,34.20663,-118.20101,I-210 / SR-2 (Foothill Corridor - Pasadena / La Canada)
+51,761604,34.15407,-118.28711,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+52,717495,34.15664,-118.41326,I-10 / Central LA Highway Network
+53,716554,34.15597,-118.2666,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+54,773953,34.15522,-118.29344,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+55,767470,34.15699,-118.22436,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+56,716955,34.09579,-118.24427,US-101 (Hollywood Fwy / Cahuenga Pass)
+57,764949,34.12881,-118.34684,US-101 (Hollywood Fwy / Cahuenga Pass)
+58,773954,34.15544,-118.29344,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+59,767366,34.21216,-118.47341,US-101 / I-405 Interchange (San Fernando Valley)
+60,769444,34.15555,-118.43908,I-10 / Central LA Highway Network
+61,773939,34.15297,-118.37226,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+62,774067,34.15362,-118.28441,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+63,769443,34.15574,-118.43931,I-10 / Central LA Highway Network
+64,767750,34.09335,-118.20635,I-5 (Golden State Fwy - Griffith / Glendale)
+65,767751,34.09335,-118.20616,I-5 (Golden State Fwy - Griffith / Glendale)
+66,767610,34.18555,-118.21766,I-210 / SR-2 (Foothill Corridor - Pasadena / La Canada)
+67,773880,34.15367,-118.3484,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+68,764766,34.13338,-118.3535,US-101 (Hollywood Fwy / Cahuenga Pass)
+69,717497,34.15685,-118.41456,I-10 / Central LA Highway Network
+70,717490,34.14745,-118.37124,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+71,717491,34.14761,-118.3711,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+72,717492,34.15459,-118.37935,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+73,717493,34.15434,-118.39618,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+74,765176,34.13286,-118.35135,US-101 (Hollywood Fwy / Cahuenga Pass)
+75,717498,34.15571,-118.43273,I-10 / Central LA Highway Network
+76,717499,34.15666,-118.44808,US-101 / I-405 Interchange (San Fernando Valley)
+77,765171,34.16789,-118.46896,US-101 / I-405 Interchange (San Fernando Valley)
+78,718064,34.11296,-118.24489,US-101 (Hollywood Fwy / Cahuenga Pass)
+79,718066,34.12302,-118.22889,I-5 (Golden State Fwy - Griffith / Glendale)
+80,765164,34.07898,-118.28911,I-110 / Downtown LA Interchange
+81,769431,34.15843,-118.45664,US-101 / I-405 Interchange (San Fernando Valley)
+82,769430,34.15818,-118.45658,US-101 / I-405 Interchange (San Fernando Valley)
+83,717610,34.17886,-118.39497,I-10 / Central LA Highway Network
+84,767053,34.17091,-118.46775,US-101 / I-405 Interchange (San Fernando Valley)
+85,767621,34.13486,-118.22969,I-5 (Golden State Fwy - Griffith / Glendale)
+86,772596,34.17126,-118.50495,US-101 / I-405 Interchange (San Fernando Valley)
+87,772597,34.17109,-118.50495,US-101 / I-405 Interchange (San Fernando Valley)
+88,767350,34.18011,-118.47045,US-101 / I-405 Interchange (San Fernando Valley)
+89,767351,34.18022,-118.47022,US-101 / I-405 Interchange (San Fernando Valley)
+90,716571,34.2,-118.40337,I-210 / SR-2 (Foothill Corridor - Pasadena / La Canada)
+91,773023,34.05773,-118.24348,I-110 / Downtown LA Interchange
+92,767585,34.16556,-118.22432,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+93,773024,34.05759,-118.24357,I-110 / Downtown LA Interchange
+94,717483,34.11684,-118.33698,US-101 (Hollywood Fwy / Cahuenga Pass)
+95,718379,34.14224,-118.27812,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+96,717481,34.10634,-118.32826,US-101 (Hollywood Fwy / Cahuenga Pass)
+97,717480,34.10478,-118.32497,US-101 (Hollywood Fwy / Cahuenga Pass)
+98,717486,34.12974,-118.34809,US-101 (Hollywood Fwy / Cahuenga Pass)
+99,764120,34.20164,-118.40366,I-210 / SR-2 (Foothill Corridor - Pasadena / La Canada)
+100,772151,34.16928,-118.49872,US-101 / I-405 Interchange (San Fernando Valley)
+101,718371,34.09017,-118.23849,I-5 (Golden State Fwy - Griffith / Glendale)
+102,717489,34.13876,-118.36438,I-10 / Central LA Highway Network
+103,717488,34.13561,-118.36006,I-10 / Central LA Highway Network
+104,717818,34.1722,-118.46753,US-101 / I-405 Interchange (San Fernando Valley)
+105,718076,34.16339,-118.2253,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+106,718072,34.1491,-118.2257,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+107,767455,34.14347,-118.22704,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+108,767454,34.14352,-118.22733,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+109,761599,34.14226,-118.27786,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+110,717099,34.15648,-118.24674,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+111,773916,34.15247,-118.2852,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+112,716968,34.16588,-118.29809,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+113,769467,34.15451,-118.39699,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+114,717576,34.15559,-118.2957,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+115,717573,34.15384,-118.325,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+116,717572,34.15351,-118.32751,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+117,717571,34.15326,-118.35921,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+118,717570,34.15302,-118.35921,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+119,764760,34.13401,-118.35506,US-101 (Hollywood Fwy / Cahuenga Pass)
+120,718089,34.12769,-118.27372,US-101 (Hollywood Fwy / Cahuenga Pass)
+121,769847,34.20983,-118.22351,I-210 / SR-2 (Foothill Corridor - Pasadena / La Canada)
+122,717608,34.17154,-118.38812,I-10 / Central LA Highway Network
+123,767523,34.11439,-118.24209,US-101 (Hollywood Fwy / Cahuenga Pass)
+124,716942,34.0593,-118.21451,I-10 / Central LA Highway Network
+125,718090,34.14847,-118.27969,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+126,769867,34.21846,-118.23931,I-210 / SR-2 (Foothill Corridor - Pasadena / La Canada)
+127,717472,34.10045,-118.31601,US-101 (Hollywood Fwy / Cahuenga Pass)
+128,717473,34.10054,-118.31581,US-101 (Hollywood Fwy / Cahuenga Pass)
+129,759591,34.11521,-118.26825,US-101 (Hollywood Fwy / Cahuenga Pass)
+130,764781,34.16037,-118.47012,US-101 / I-405 Interchange (San Fernando Valley)
+131,765099,34.16378,-118.47224,US-101 / I-405 Interchange (San Fernando Valley)
+132,762329,34.13904,-118.22862,I-5 (Golden State Fwy - Griffith / Glendale)
+133,716953,34.09458,-118.24279,US-101 (Hollywood Fwy / Cahuenga Pass)
+134,716951,34.08581,-118.23182,I-110 / Downtown LA Interchange
+135,767509,34.11059,-118.24819,US-101 (Hollywood Fwy / Cahuenga Pass)
+136,765182,34.06491,-118.25126,I-110 / Downtown LA Interchange
+137,769358,34.15679,-118.42222,I-10 / Central LA Highway Network
+138,772513,34.06871,-118.23661,I-110 / Downtown LA Interchange
+139,716958,34.11167,-118.26501,US-101 (Hollywood Fwy / Cahuenga Pass)
+140,718496,34.15403,-118.34232,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+141,769346,34.15677,-118.40424,I-10 / Central LA Highway Network
+142,773904,34.15641,-118.30266,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+143,718499,34.15469,-118.31253,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+144,764853,34.06461,-118.25102,I-110 / Downtown LA Interchange
+145,761003,34.15546,-118.30841,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+146,717502,34.16521,-118.47484,US-101 / I-405 Interchange (San Fernando Valley)
+147,759602,34.12199,-118.27178,US-101 (Hollywood Fwy / Cahuenga Pass)
+148,717504,34.16519,-118.49166,US-101 / I-405 Interchange (San Fernando Valley)
+149,763995,34.21979,-118.40931,I-210 / SR-2 (Foothill Corridor - Pasadena / La Canada)
+150,717508,34.17112,-118.51814,US-101 / I-405 Interchange (San Fernando Valley)
+151,765265,34.18529,-118.47395,US-101 / I-405 Interchange (San Fernando Valley)
+152,773996,34.14511,-118.21587,I-5 (Golden State Fwy - Griffith / Glendale)
+153,773995,34.14483,-118.21587,I-5 (Golden State Fwy - Griffith / Glendale)
+154,717469,34.0971,-118.31366,US-101 (Hollywood Fwy / Cahuenga Pass)
+155,717468,34.09699,-118.31381,US-101 (Hollywood Fwy / Cahuenga Pass)
+156,764106,34.17169,-118.38801,I-10 / Central LA Highway Network
+157,717465,34.09373,-118.30907,US-101 (Hollywood Fwy / Cahuenga Pass)
+158,764794,34.16028,-118.46808,US-101 / I-405 Interchange (San Fernando Valley)
+159,717466,34.09359,-118.30918,US-101 (Hollywood Fwy / Cahuenga Pass)
+160,717461,34.08558,-118.30174,I-10 / Central LA Highway Network
+161,717460,34.08571,-118.30161,I-10 / Central LA Highway Network
+162,717463,34.09004,-118.3059,US-101 (Hollywood Fwy / Cahuenga Pass)
+163,717462,34.08993,-118.30607,I-10 / Central LA Highway Network
+164,769345,34.15655,-118.40441,I-10 / Central LA Highway Network
+165,716943,34.05987,-118.21492,I-10 / Central LA Highway Network
+166,772669,34.07828,-118.22834,I-110 / Downtown LA Interchange
+167,717582,34.15646,-118.26092,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+168,717583,34.15627,-118.25506,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+169,717580,34.1562,-118.26359,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+170,716949,34.08406,-118.22974,I-110 / Downtown LA Interchange
+171,717587,34.15402,-118.23893,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+172,772178,34.16903,-118.49885,US-101 / I-405 Interchange (San Fernando Valley)
+173,717585,34.15564,-118.24188,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+174,716939,34.04301,-118.21724,I-10 / Central LA Highway Network
+175,768469,34.13583,-118.35993,US-101 (Hollywood Fwy / Cahuenga Pass)
+176,764101,34.16421,-118.38246,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+177,767554,34.11966,-118.23143,I-5 (Golden State Fwy - Griffith / Glendale)
+178,773975,34.14584,-118.22251,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+179,773974,34.14559,-118.22251,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+180,717510,34.17128,-118.51976,US-101 / I-405 Interchange (San Fernando Valley)
+181,717513,34.17339,-118.5368,US-101 / I-405 Interchange (San Fernando Valley)
+182,717825,34.22164,-118.47307,US-101 / I-405 Interchange (San Fernando Valley)
+183,767495,34.10377,-118.24992,US-101 (Hollywood Fwy / Cahuenga Pass)
+184,767494,34.10377,-118.24962,US-101 (Hollywood Fwy / Cahuenga Pass)
+185,717821,34.20112,-118.47361,US-101 / I-405 Interchange (San Fernando Valley)
+186,717823,34.20264,-118.47326,US-101 / I-405 Interchange (San Fernando Valley)
+187,717458,34.08265,-118.29755,I-10 / Central LA Highway Network
+188,717459,34.08294,-118.29729,I-10 / Central LA Highway Network
+189,769926,34.21356,-118.23113,I-210 / SR-2 (Foothill Corridor - Pasadena / La Canada)
+190,764858,34.1527,-118.3754,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+191,717450,34.07488,-118.27362,I-110 / Downtown LA Interchange
+192,717452,34.07502,-118.27356,I-110 / Downtown LA Interchange
+193,717453,34.07696,-118.28093,I-110 / Downtown LA Interchange
+194,759772,34.17115,-118.30539,I-10 / Central LA Highway Network
+195,717456,34.08102,-118.29325,I-10 / Central LA Highway Network
+196,771673,34.07787,-118.22871,I-110 / Downtown LA Interchange
+197,772167,34.16526,-118.47985,US-101 / I-405 Interchange (San Fernando Valley)
+198,769372,34.1027,-118.3173,US-101 (Hollywood Fwy / Cahuenga Pass)
+199,774204,34.15397,-118.34172,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+200,769806,34.19638,-118.18442,I-210 / SR-2 (Foothill Corridor - Pasadena / La Canada)
+201,717590,34.14929,-118.23182,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+202,717592,34.14604,-118.2243,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+203,717595,34.14163,-118.1829,I-10 / Central LA Highway Network
+204,772168,34.16542,-118.47985,US-101 / I-405 Interchange (San Fernando Valley)
+205,718141,34.15133,-118.37456,SR-134 (Ventura Fwy - Glendale / Burbank / Pasadena)
+206,769373,34.10262,-118.31747,US-101 (Hollywood Fwy / Cahuenga Pass)
