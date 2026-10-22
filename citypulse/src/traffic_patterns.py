@@ -22,19 +22,18 @@ def analyze_traffic_patterns(sample_size: int = 120000, random_seed: int = 42) -
     if _HISTORICAL_PATTERNS_CACHE is not None:
         return _HISTORICAL_PATTERNS_CACHE
 
-    from src.data_loader import get_dataset_parquet_path
     import pickle
+    from config import resolve_data_path
 
-    try:
-        parquet_path = get_dataset_parquet_path()
-    except Exception as e:
-        from config import resolve_data_path
-        cache_pkl = resolve_data_path("traffic_patterns_cache.pkl")
-        if cache_pkl.exists():
-            with open(cache_pkl, "rb") as f:
-                _HISTORICAL_PATTERNS_CACHE = pickle.load(f)
-            return _HISTORICAL_PATTERNS_CACHE
-        raise e
+    # Check precomputed cache first for instant sub-second page loads
+    cache_pkl = resolve_data_path("traffic_patterns_cache.pkl")
+    if cache_pkl.exists():
+        with open(cache_pkl, "rb") as f:
+            _HISTORICAL_PATTERNS_CACHE = pickle.load(f)
+        return _HISTORICAL_PATTERNS_CACHE
+
+    from src.data_loader import get_dataset_parquet_path
+    parquet_path = get_dataset_parquet_path()
 
     meta = pq.read_metadata(str(parquet_path))
     total_rows = meta.num_rows

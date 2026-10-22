@@ -119,13 +119,26 @@ def get_network_snapshot(timestamp: str = None) -> pd.DataFrame:
     """
     Returns a complete network snapshot (all 207 nodes) for a given timestamp,
     or the latest available timestamp if not specified.
+    Uses pre-extracted snapshot cache if available for instant sub-second response.
     """
-    parquet_path = get_dataset_parquet_path()
-    
     cols_to_read = [
         "node_id", "t0_timestamp", "x_t+0_d0", "x_t+0_d1",
         "y_t+3_d0", "y_t+6_d0", "y_t+12_d0"
     ] + [f"x_t-{i}_d0" for i in range(1, 12)]
+
+    # 1. Check bundled snapshot cache first (85 KB, 207 nodes, zero-latency)
+    snapshot_cache_path = resolve_data_path("snapshot_cache.parquet")
+    if timestamp is None and snapshot_cache_path.exists():
+        table = pq.read_table(str(snapshot_cache_path))
+        df = table.to_pandas()
+        latest_ts = df["t0_timestamp"].max()
+        snapshot = df[df["t0_timestamp"] == latest_ts].drop_duplicates(subset=["node_id"])
+        locs = get_sensor_locations()
+        merged = pd.merge(snapshot, locs, on="node_id", how="left")
+        merged["dataset_source"] = f"Hugging Face: {HF_DATASET_REPO_ID} (Optimized Telemetry Cache)"
+        return merged
+
+    parquet_path = get_dataset_parquet_path()
     
     if timestamp is None:
         table = pq.read_table(str(parquet_path), columns=cols_to_read)
@@ -145,22 +158,32 @@ def get_network_snapshot(timestamp: str = None) -> pd.DataFrame:
     # Merge with sensor location metadata
     locs = get_sensor_locations()
     merged = pd.merge(snapshot, locs, on="node_id", how="left")
-    merged["dataset_source"] = f"Hugging Face: {HF_DATASET_REPO_ID}" if "snapshots" in str(parquet_path) else "Local Verified Dataset"
+    merged["dataset_source"] = f"Hugging Face: {HF_DATASET_REPO_ID}"
     return merged
 
 def get_recent_window_cache() -> pd.DataFrame:
     """Loads and caches recent observations (~24-36h across all 207 nodes)."""
     global _RECENT_WINDOW_CACHE
-    if _RECENT_WINDOW_CACHE is None:
-        parquet_path = get_dataset_parquet_path()
-        meta = pq.read_metadata(str(parquet_path))
-        total_rows = meta.num_rows
-        cols = ["node_id", "t0_timestamp", "x_t+0_d0", "x_t+0_d1", "y_t+3_d0"]
-        table = pq.read_table(str(parquet_path), columns=cols)
-        slice_size = min(75000, total_rows)
-        df_recent = table.slice(total_rows - slice_size, slice_size).to_pandas()
+    if _RECENT_WINDOW_CACHE is not None:
+        return _RECENT_WINDOW_CACHE
+
+    recent_cache_path = resolve_data_path("recent_telemetry_cache.parquet")
+    if recent_cache_path.exists():
+        table = pq.read_table(str(recent_cache_path))
+        df_recent = table.to_pandas()
         df_recent["timestamp"] = pd.to_datetime(df_recent["t0_timestamp"])
         _RECENT_WINDOW_CACHE = df_recent
+        return _RECENT_WINDOW_CACHE
+
+    parquet_path = get_dataset_parquet_path()
+    meta = pq.read_metadata(str(parquet_path))
+    total_rows = meta.num_rows
+    cols = ["node_id", "t0_timestamp", "x_t+0_d0", "x_t+0_d1", "y_t+3_d0"]
+    table = pq.read_table(str(parquet_path), columns=cols)
+    slice_size = min(75000, total_rows)
+    df_recent = table.slice(total_rows - slice_size, slice_size).to_pandas()
+    df_recent["timestamp"] = pd.to_datetime(df_recent["t0_timestamp"])
+    _RECENT_WINDOW_CACHE = df_recent
     return _RECENT_WINDOW_CACHE
 
 def get_sensor_history(node_id: int, num_samples: int = 288) -> pd.DataFrame:
