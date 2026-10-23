@@ -1,9 +1,10 @@
 """
 1_Overview.py - Screen 1: Highway Network Overview
 Presents network-wide status, condition distribution, interactive Mapbox map,
-Top 10 critical hotspot table, and prominent historical period badge.
+Top 10 critical hotspot table, and historical domain coverage details.
 """
 
+import os
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -12,34 +13,21 @@ import plotly.express as px
 from src.data_loader import get_network_snapshot
 from src.inference import predict_network_state
 from src.hotspot_ranking import calculate_hotspot_priority_scores
-from src.mapping import create_sensor_map
+from src.mapping import create_sensor_map, get_mapbox_token
+from config import GEOGRAPHIC_SCOPE, TIME_SPAN, TOTAL_MONITORED_NODES, SAMPLING_INTERVAL
 
-# Page Header
-st.markdown("""
-<div style="margin-bottom: 20px;">
-    <h1 style="margin: 0; font-size: 2rem; font-weight: 800; color: #FFFFFF; letter-spacing: -0.02em;">
-        TrafficPulse AI — Network Overview
-    </h1>
-    <p style="margin: 4px 0 0 0; font-size: 0.9rem; color: #94A3B8;">
-        Real-time intelligence and predictive traffic monitoring across the Los Angeles County highway grid (Caltrans PeMS District 7).
-    </p>
-</div>
-""", unsafe_allow_html=True)
+# Page Title & Header
+st.title("TrafficPulse AI — Network Overview")
+st.caption("Predictive traffic monitoring and historical telemetry intelligence across the Los Angeles County highway grid (Caltrans PeMS District 7).")
 
-# Historical Data Provenance Banner
-from config import HF_DATASET_REPO_ID
-
-st.markdown(f"""
-<div style="background: rgba(15, 23, 42, 0.8); border: 1px solid #1E293B; border-radius: 10px; padding: 10px 16px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
-    <div style="display: flex; align-items: center; gap: 8px;">
-        <span style="font-size: 1.1rem;">🤗</span>
-        <span style="font-size: 0.82rem; color: #E2E8F0; font-weight: 600;">Dataset Source: Hugging Face (<code>{HF_DATASET_REPO_ID}</code>)</span>
-    </div>
-    <div style="font-size: 0.78rem; color: #94A3B8;">
-        Coverage Window: <b style="color: #38BDF8;">March 1, 2012 – May 23, 2012</b> (Historical Caltrans PeMS D7 Loop Telemetry)
-    </div>
-</div>
-""", unsafe_allow_html=True)
+# Domain Coverage Card
+with st.container(border=True):
+    col_d1, col_d2 = st.columns([7, 3])
+    with col_d1:
+        st.markdown(f"**🛣️ {GEOGRAPHIC_SCOPE}**")
+        st.caption(f"{TOTAL_MONITORED_NODES} Monitored Loop Detector Stations • {SAMPLING_INTERVAL} Cadence")
+    with col_d2:
+        st.info(f"**Telemetry Window:** {TIME_SPAN}\n\n*Historical Observations*", icon="📅")
 
 # 1. Load Data & Compute Dynamic Hotspot Rankings (Cached)
 @st.cache_data(ttl=600)
@@ -54,21 +42,12 @@ try:
         network_df = load_overview_data()
     if network_df.get("is_fallback_mode", pd.Series([False])).iloc[0]:
         st.info(
-            "ℹ️ **Running in Deployment Preview Mode:** Displaying verified telemetry snapshot (207 stations). "
-            "The full 157 MB historical archive (`data/train.parquet`) was excluded from Git because it exceeds GitHub's 100 MB limit. "
-            "To deploy the full archive to Streamlit Cloud, see **Git LFS** instructions in `README.md`."
+            "Running in Deployment Preview Mode: Displaying verified telemetry snapshot (207 stations). "
+            "To deploy the full archive to Streamlit Cloud, see Git LFS instructions in README.md."
         )
 except FileNotFoundError as fnf_err:
-    st.error("### ❌ Primary Dataset Not Found")
-    st.markdown(f"""
-    **Diagnostic Details:**
-    - **Error:** `{fnf_err}`
-    - **Expected Location:** `citypulse/data/train.parquet` (157 MB, 4,962,618 rows)
-    - **Root Cause:** GitHub limits single files to 100 MB. `train.parquet` exists in your local development workspace, but was excluded from Git.
-    - **How to provide the full file on Streamlit Cloud:**
-      1. Track via Git LFS: `git lfs track "citypulse/data/train.parquet"`
-      2. Or mount cloud object storage and set `CITYPULSE_DATA_DIR` in your deployment environment variables.
-    """)
+    st.error("Primary Dataset Not Found")
+    st.write(f"Diagnostic Error: {fnf_err}")
     st.stop()
 except Exception as e:
     st.error(f"Error loading network data: {e}")
@@ -85,13 +64,13 @@ k1, k2, k3, k4, k5 = st.columns(5)
 k1.metric("Monitored Sensors", f"{total_sensors}", "Caltrans PeMS D7")
 k2.metric("Critical Hotspots", f"{crit_high_count}", f"{(crit_high_count/total_sensors)*100:.1f}% of network", delta_color="inverse")
 k3.metric("Free-Flow Ratio", f"{free_flow_pct:.1f}%", ">= 55.0 mph")
-k4.metric("Network Mean Speed", f"{avg_speed:.1f} mph", "65 mph design speed")
+k4.metric("Network Mean Speed", f"{avg_speed:.1f} mph", "65 mph benchmark")
 k5.metric("Observation Timestamp", latest_timestamp.split("T")[-1][:5], latest_timestamp.split("T")[0])
 
-st.markdown("<hr style='border-color: #1E293B; margin: 20px 0;'>", unsafe_allow_html=True)
+st.divider()
 
 # 3. Interactive Filter Bar
-col_f1, col_f2, col_f3 = st.columns(3)
+col_f1, col_f2, col_f3, col_f4 = st.columns([3, 2, 2, 3])
 with col_f1:
     corridors = ["All Freeway Corridors"] + sorted(list(network_df["corridor"].dropna().unique()))
     sel_corridor = st.selectbox("Corridor Filter", corridors)
@@ -99,24 +78,60 @@ with col_f2:
     tiers = ["All Severity Tiers", "Critical", "High", "Medium", "Low"]
     sel_tier = st.selectbox("Severity Tier Filter", tiers)
 with col_f3:
-    map_style = st.selectbox("Map Cartography", ["carto-positron", "open-street-map", "carto-darkmatter"])
+    mapbox_token = get_mapbox_token()
+    available_styles = ["open-street-map", "dark", "streets", "light"] if mapbox_token else ["open-street-map"]
+    map_style = st.selectbox("Map Cartography", available_styles)
 
+# Filter dataset
 filtered_df = network_df.copy()
 if sel_corridor != "All Freeway Corridors":
     filtered_df = filtered_df[filtered_df["corridor"] == sel_corridor]
 if sel_tier != "All Severity Tiers":
     filtered_df = filtered_df[filtered_df["severity_tier"] == sel_tier]
 
+with col_f4:
+    station_options = ["None (Show All Stations)"] + [
+        f"Station #{row['sensor_id']} ({str(row['corridor']).split(' (')[0]})"
+        for _, row in filtered_df.iterrows()
+    ]
+    station_node_map = {
+        f"Station #{row['sensor_id']} ({str(row['corridor']).split(' (')[0]})": int(row["node_id"])
+        for _, row in filtered_df.iterrows()
+    }
+    sel_station_label = st.selectbox("Inspect / Highlight Station", station_options)
+    selected_node = station_node_map.get(sel_station_label, None)
+
+# Pinned Station Inspector Card (when a station is selected)
+if selected_node is not None:
+    st_row = network_df[network_df["node_id"] == selected_node].iloc[0]
+    with st.container(border=True):
+        st.subheader(f"📍 Selected Station #{st_row['sensor_id']} (Node {selected_node})")
+        st.caption(f"**Corridor:** {st_row['corridor']}")
+        
+        c_i1, c_i2, c_i3, c_i4 = st.columns(4)
+        c_i1.metric("Current Speed", f"{st_row['current_speed']:.1f} mph")
+        c_i2.metric("Forecast (t+15m)", f"{st_row['pred_speed_15m']:.1f} mph", f"{st_row['speed_change_15m']:+.1f} mph", delta_color="inverse")
+        c_i3.metric("Predicted State", f"{st_row['pred_condition']}", f"{st_row['confidence_score']:.0f}% confidence")
+        c_i4.metric("Priority Tier", f"{st_row['severity_tier']}", f"{st_row['priority_score']:.1f}/100 score")
+        
+        st.write(f"**Ranking Reason:** {st_row['ranking_reason']}")
+        st.caption(f"**Recommended Action:** {st_row['recommended_investigation']}")
+
 # 4. Map & Condition Distribution Row
 map_col, dist_col = st.columns([7, 3])
 
 with map_col:
-    st.markdown(f"**Interactive Highway Map** ({len(filtered_df)} stations shown)")
-    fig_map = create_sensor_map(filtered_df, map_style=map_style, height=480)
+    st.subheader(f"Interactive Highway Network Map ({len(filtered_df)} stations shown)")
+    fig_map = create_sensor_map(
+        filtered_df, 
+        selected_node_id=selected_node,
+        map_style=map_style, 
+        height=520
+    )
     st.plotly_chart(fig_map, use_container_width=True)
 
 with dist_col:
-    st.markdown("**Predicted Traffic Distribution**")
+    st.subheader("Traffic Distribution")
     cond_counts = network_df["pred_condition"].value_counts().reset_index()
     cond_counts.columns = ["Condition", "Count"]
     fig_donut = px.pie(
@@ -128,7 +143,7 @@ with dist_col:
         color_discrete_map={"Low": "#10B981", "Moderate": "#F59E0B", "High": "#EF4444"}
     )
     fig_donut.update_layout(
-        height=220,
+        height=240,
         margin=dict(l=10, r=10, t=10, b=10),
         legend=dict(orientation="h", yanchor="bottom", y=-0.2, xanchor="center", x=0.5),
         paper_bgcolor="rgba(0,0,0,0)",
@@ -136,7 +151,7 @@ with dist_col:
     )
     st.plotly_chart(fig_donut, use_container_width=True)
     
-    st.markdown("**Hotspot Severity Breakdown**")
+    st.subheader("Severity Breakdown")
     tier_counts = network_df["severity_tier"].value_counts().reindex(["Critical", "High", "Medium", "Low"]).fillna(0).reset_index()
     tier_counts.columns = ["Tier", "Count"]
     fig_bar = px.bar(
@@ -147,7 +162,7 @@ with dist_col:
         color_discrete_map={"Critical": "#DC2626", "High": "#EF4444", "Medium": "#F59E0B", "Low": "#10B981"}
     )
     fig_bar.update_layout(
-        height=200,
+        height=220,
         margin=dict(l=10, r=10, t=10, b=10),
         showlegend=False,
         paper_bgcolor="rgba(0,0,0,0)",
@@ -157,10 +172,10 @@ with dist_col:
     )
     st.plotly_chart(fig_bar, use_container_width=True)
 
-st.markdown("<hr style='border-color: #1E293B; margin: 20px 0;'>", unsafe_allow_html=True)
+st.divider()
 
 # 5. Top 10 Critical Hotspots Table
-st.markdown("### 🔥 Top 10 Critical Highway Hotspots")
+st.subheader("🔥 Top 10 Critical Highway Hotspots")
 st.caption("Ranked by multi-factor priority score combining speed deficit below 65 mph, predicted deceleration, historical recurrence, and queue persistence.")
 
 top10 = network_df.head(10)[[
@@ -173,14 +188,15 @@ top10.columns = [
     "Current Speed", "Forecast (t+15m)", "Trend", "Main Ranking Reason", "Recommended Investigation"
 ]
 
-def style_tier(val):
-    if val == "Critical":
-        return "background-color: rgba(220, 38, 38, 0.25); color: #FCA5A5; font-weight: bold;"
-    elif val == "High":
-        return "background-color: rgba(239, 68, 68, 0.2); color: #FCA5A5;"
-    elif val == "Medium":
-        return "background-color: rgba(245, 158, 11, 0.2); color: #FDE68A;"
-    return "color: #A7F3D0;"
+st.dataframe(top10, use_container_width=True, hide_index=True)
 
-styled_top10 = top10.style.applymap(style_tier, subset=["Severity Tier"])
-st.dataframe(styled_top10, use_container_width=True, hide_index=True)
+# 6. Technical Provenance & Calibration Metadata
+with st.expander("ℹ️ Technical Highway Domain & Calibration Documentation", expanded=False):
+    st.markdown("""
+    **Dataset & Highway Sensor Network Architecture:**
+    - **Telemetry Source:** Caltrans Performance Measurement System (PeMS) District 7 highway loop telemetry.
+    - **Monitored Domain:** 207 verified dual-loop detector stations across Los Angeles County freeways (I-5, I-10, US-101, I-405, I-210, SR-134, SR-110, SR-60).
+    - **Observation Window:** March 1, 2012 to May 23, 2012 (historical training and evaluation benchmark).
+    - **Sampling Cadence:** Aggregated 5-minute telemetry intervals (speed, volume, occupancy).
+    - **Model Training:** Chronological train/test split at May 1, 2012. Models evaluated strictly on held-out post-split observations.
+    """)
